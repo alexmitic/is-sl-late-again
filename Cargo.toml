@@ -5,3 +5,4 @@ authors = ["Aleksandar Mitic <mitic.alex@hotmail.se>"]
 
 [dependencies]
 actix-web = "0.7"
+actix-redis = "0.5.1"
