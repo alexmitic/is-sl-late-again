@@ -1,12 +1,20 @@
 extern crate actix_web;
-use actix_web::{server, App, HttpRequest};
+extern crate actix_redis;
+
+use actix_web::{server, App, HttpRequest, middleware};
+use actix_web::middleware::session::SessionStorage;
+use actix_redis::RedisSessionBackend;
 
 fn hello(_req: &HttpRequest) -> &'static str {
     "Hello World"
 }
 
 fn main() {
-    server::new(|| App::new().resource("/", |r| r.f(hello)))
+    server::new(|| App::new()
+                .middleware(SessionStorage::new(
+                    RedisSessionBackend::new("127.0.0.1:6379", &[0; 32])
+                ))
+            .resource("/", |r| r.f(hello)))
         .bind("127.0.0.1:8088")
         .unwrap()
         .run();
