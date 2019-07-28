@@ -1,0 +1,19 @@
+<html>  
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>  
+        <p id="times">Loading... like SL this site can also be late sometimes</p>  
+        <script type="text/javascript">
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() { 
+                if (this.readyState == 4 && this.status == 200) {
+                    var element = document.getElementById("times");
+                    element.innerHTML = JSON.parse(this.responseText).total;
+                }
+            }
+            xmlHttp.open("GET", "status.json", true);
+            xmlHttp.send(null);
+        </script>
+    </body>  
+</html>  
